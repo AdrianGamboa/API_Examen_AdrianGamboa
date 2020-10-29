@@ -19,9 +19,16 @@ public interface ICantonService {
     
     public Optional<List<CantonDTO>> findByCodigoCantonAproximate(String codigoCanton);
     
+    public Long SumaCantidadPoblacionByCantonId(Long idCanton);
+    
+    public Float SumaAreaCuadradaByCantonId(Long idCanton);
+    
     public CantonDTO create(CantonDTO canton);
 
     public Optional<CantonDTO> update(CantonDTO cantonDTO, Long id);
     
+    public void deleteById(Long id);
+
+    public void deleteAll();
 }
 

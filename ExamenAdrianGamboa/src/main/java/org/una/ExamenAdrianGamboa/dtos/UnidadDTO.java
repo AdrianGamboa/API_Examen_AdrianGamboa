@@ -18,10 +18,11 @@ public class UnidadDTO {
     
     private Long id; 
     private String nombreUnidad;
-    private String codigoUnidad;
-    private Float areaCuadrada;
-    private Integer cantidadPoblacion;
+    private Integer codigoUnidad;
+    private String tipoUnidad;
+    private Double areaEnMetrosCuadrados;
+    private Long cantidadPoblacion;
     private DistritoDTO distrito;
-    
+    private TipoDeUnidadDTO tipoDeUnidad;
 }
 

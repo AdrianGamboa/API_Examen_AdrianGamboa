@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 
 import java.util.Optional;
 import javax.validation.Valid;
+import org.springframework.web.bind.annotation.DeleteMapping;
 
 /**
  *
@@ -75,6 +76,26 @@ public class CantonController {
         }
     }
     
+    @GetMapping("/SumaCantidadPoblacionByCantonId/{id}")
+    @ApiOperation(value = "Obtiene la población del canton mediante su Id", response = CantonDTO.class, tags = "Cantones")
+    public ResponseEntity<?> SumaCantidadPoblacionByCantonId(@PathVariable(value = "id") Long id) {
+        try {
+            return new ResponseEntity(cantonService.SumaCantidadPoblacionByCantonId(id), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity(e, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+    
+    @GetMapping("/SumaAreaCuadradaByCantonId/{id}")
+    @ApiOperation(value = "Obtiene el área en metros cuadrados del canton mediante su Id", response = CantonDTO.class, tags = "Cantones")
+    public ResponseEntity<?> SumaAreaCuadradaByCantonId(@PathVariable(value = "id") Long id) {
+        try {
+            return new ResponseEntity(cantonService.SumaAreaCuadradaByCantonId(id), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity(e, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+    
     @PostMapping("/")
     @ApiOperation(value = "Permite crear un Canton", response = CantonDTO.class, tags = "Cantones")
     public ResponseEntity<?> create(@Valid @RequestBody CantonDTO cantonDTO, BindingResult bindingResult) {
@@ -107,5 +128,26 @@ public class CantonController {
             return new ResponseEntity(MENSAJE_VERIFICAR_INFORMACION, HttpStatus.BAD_REQUEST);
         }
     }
-}
+    
+    @DeleteMapping("/deleteById/{id}")
+    @ApiOperation(value = "Permite eliminar un Canton a partir de su Id", response = CantonDTO.class, tags = "Cantones")
+    public ResponseEntity<?> deleteById(@PathVariable(value = "id") Long id) {
+        try {
+            cantonService.deleteById(id);
+            return new ResponseEntity(HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity(e, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
+    @DeleteMapping("/deleteAll")
+    @ApiOperation(value = "Permite eliminar todos los cantones", response = CantonDTO.class, tags = "Cantones")
+    public ResponseEntity<?> deleteAll() {
+        try {
+            cantonService.deleteAll();
+            return new ResponseEntity(HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity(e, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+}

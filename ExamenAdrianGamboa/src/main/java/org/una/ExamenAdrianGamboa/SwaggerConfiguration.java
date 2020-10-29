@@ -53,7 +53,8 @@ public class SwaggerConfiguration {
                 .tags(  new Tag("Provincias", "Metodos de las Provincias"),
                         new Tag("Cantones", "Metodos de los Cantones"),
                         new Tag("Distritos", "Metodos de los Distritos"),
-                        new Tag("Unidades", "Metodos de las Unidades")
+                        new Tag("Unidades", "Metodos de las Unidades"),
+                        new Tag("Tipos de unidades", "Metodos de los Tipos de Unidades")
                          
                 );
 

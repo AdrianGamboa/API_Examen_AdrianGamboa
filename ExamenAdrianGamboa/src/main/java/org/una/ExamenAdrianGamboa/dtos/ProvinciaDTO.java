@@ -18,6 +18,6 @@ public class ProvinciaDTO {
     
     private Long id; 
     private String nombreProvincia;
-    private String codigoProvincia;
+    private Integer codigoProvincia;
     
 }

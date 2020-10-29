@@ -11,13 +11,18 @@ import org.una.ExamenAdrianGamboa.entities.Provincia;
  */
 
 public interface IProvinciaRepository extends JpaRepository<Provincia, Long>{
-   
-   // @Query(value = "SELECT can FROM Canton can JOIN can.distrito dis JOIN dis.unidad uni where pw.id=:id1 and nw.id=:id2")
-  //  @Query(value = "Select Emp.codigo_emp, Emp.nombre_emp, Emp.edad, Emp.direccion_emp From t_empleado emp Where emp.id_departamento = (Select dep.id_departamento From t_departamento dep Where dep.codigo_dep = pin_codigo_dep)")
-   /* @Query(value = "SELECT Can.id FROM Canton Can , "
-            + "(SELECT Dis.id FROM Distrito Dis) id_dis "
-            + "WHERE Can.id = id_dis.id_dis")*/
-    //public List<Provincia> findUnidadCantidadPoblacionByProvinciaId(Long id); //Implementar los service
+
+    @Query(value = "SELECT SUM(uni.cantidadPoblacion) FROM Unidad uni JOIN uni.distrito dis JOIN dis.canton can JOIN can.provincia pro WHERE "
+            + "can.provincia IN (SELECT prov FROM Provincia prov WHERE prov.id = ?1) AND "
+            + "dis.canton IN (SELECT cant.id FROM Canton cant WHERE cant.provincia = ?1) AND "
+            + "uni.distrito IN (SELECT dist.id FROM Distrito dist WHERE dist.canton = (SELECT cant.id FROM Canton cant WHERE cant.provincia = ?1))")
+    public Long SumaCantidadPoblacionByProvinciaId(Long idProvincia);
+    
+    @Query(value = "SELECT SUM(uni.areaEnMetrosCuadrados) FROM Unidad uni JOIN uni.distrito dis JOIN dis.canton can JOIN can.provincia pro WHERE "
+            + "can.provincia IN (SELECT prov FROM Provincia prov WHERE prov.id = ?1) AND "
+            + "dis.canton IN (SELECT cant.id FROM Canton cant WHERE cant.provincia = ?1) AND "
+            + "uni.distrito IN (SELECT dist.id FROM Distrito dist WHERE dist.canton = (SELECT cant.id FROM Canton cant WHERE cant.provincia = ?1))")
+    public Float SumaAreaCuadradaByProvinciaId(Long idProvincia);
     
     public List<Provincia> findByNombreProvinciaContainingIgnoreCase(String nombreProvincia);
     

@@ -30,7 +30,7 @@ public class Canton implements Serializable {
     private String nombreCanton;
     
     @Column(name = "codigo", length = 5)
-    private String codigoCanton;
+    private Integer codigoCanton;
     
     @ManyToOne 
     @JoinColumn(name="provincias_id")

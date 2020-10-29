@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 
 import java.util.Optional;
 import javax.validation.Valid;
+import org.springframework.web.bind.annotation.DeleteMapping;
 
 /**
  *
@@ -75,6 +76,26 @@ public class ProvinciaController {
         }
     }
     
+    @GetMapping("/SumaCantidadPoblacionByProvinciaId/{id}")
+    @ApiOperation(value = "Obtiene la población de la provincia según su Id", response = ProvinciaDTO.class, tags = "Provincias")
+    public ResponseEntity<?> SumaCantidadPoblacionByProvinciaId(@PathVariable(value = "id") Long idProvincia) {
+        try {
+            return new ResponseEntity(provinciaService.SumaCantidadPoblacionByProvinciaId(idProvincia), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity(e, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+    
+    @GetMapping("/SumaAreaCuadradaByProvinciaId/{id}")
+    @ApiOperation(value = "Obtiene el area en metros cuadrados de la provincia según su Id", response = ProvinciaDTO.class, tags = "Provincias")
+    public ResponseEntity<?> SumaAreaCuadradaByProvinciaId(@PathVariable(value = "id") Long idProvincia) {
+        try {
+            return new ResponseEntity(provinciaService.SumaAreaCuadradaByProvinciaId(idProvincia), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity(e, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+    
     @PostMapping("/")
     @ApiOperation(value = "Permite crear una Provincia", response = ProvinciaDTO.class, tags = "Provincias")
     public ResponseEntity<?> create(@Valid @RequestBody ProvinciaDTO provinciaDTO, BindingResult bindingResult) {
@@ -105,6 +126,28 @@ public class ProvinciaController {
             }
         } else {
             return new ResponseEntity(MENSAJE_VERIFICAR_INFORMACION, HttpStatus.BAD_REQUEST);
+        }
+    }
+    
+    @DeleteMapping("/deleteById/{id}")
+    @ApiOperation(value = "Permite eliminar una Provincia a partir de su Id", response = ProvinciaDTO.class, tags = "Provincias")
+    public ResponseEntity<?> deleteById(@PathVariable(value = "id") Long id) {
+        try {
+            provinciaService.deleteById(id);
+            return new ResponseEntity(HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity(e, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @DeleteMapping("/deleteAll")
+    @ApiOperation(value = "Permite eliminar todas las Provincias", response = ProvinciaDTO.class, tags = "Provincias")
+    public ResponseEntity<?> deleteAll() {
+        try {
+            provinciaService.deleteAll();
+            return new ResponseEntity(HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity(e, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

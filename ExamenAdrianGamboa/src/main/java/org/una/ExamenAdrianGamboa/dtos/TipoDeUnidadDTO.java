@@ -14,12 +14,8 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor 
 @ToString
-public class CantonDTO {
+public class TipoDeUnidadDTO {
     
     private Long id; 
-    private String nombreCanton;
-    private Integer codigoCanton;
-    private ProvinciaDTO provincia;
-    
+    private String nombreTipoUnidad;    
 }
-

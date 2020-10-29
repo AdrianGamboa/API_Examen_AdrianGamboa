@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 
 import java.util.Optional;
 import javax.validation.Valid;
+import org.springframework.web.bind.annotation.DeleteMapping;
 
 /**
  *
@@ -75,6 +76,26 @@ public class UnidadController {
         }
     }
     
+    @GetMapping("/SumaUnidadCantidadPoblacion/{id}")
+    @ApiOperation(value = "Obtiene una la población de la unidad dependiendo del Id", response = UnidadDTO.class, tags = "Unidades")
+    public ResponseEntity<?> SumaUnidadCantidadPoblacion(@PathVariable(value = "id") Long id) {
+        try {
+            return new ResponseEntity(unidadService.SumaUnidadCantidadPoblacion(id), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity(e, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+    
+    @GetMapping("/SumaUnidadAreaCuadrada/{id}")
+    @ApiOperation(value = "Obtiene una el area cuadrada de la unidad dependiendo del Id", response = UnidadDTO.class, tags = "Unidades")
+    public ResponseEntity<?> SumaUnidadAreaCuadrada(@PathVariable(value = "id") Long id) {
+        try {
+            return new ResponseEntity(unidadService.SumaUnidadAreaCuadrada(id), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity(e, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+    
     @PostMapping("/")
     @ApiOperation(value = "Permite crear una Unidad", response = UnidadDTO.class, tags = "Unidades")
     public ResponseEntity<?> create(@Valid @RequestBody UnidadDTO unidadDTO, BindingResult bindingResult) {
@@ -105,6 +126,28 @@ public class UnidadController {
             }
         } else {
             return new ResponseEntity(MENSAJE_VERIFICAR_INFORMACION, HttpStatus.BAD_REQUEST);
+        }
+    }
+    
+    @DeleteMapping("/deleteById/{id}")
+    @ApiOperation(value = "Permite eliminar una Unidad a partir de su Id", response = UnidadDTO.class, tags = "Unidades")
+    public ResponseEntity<?> deleteById(@PathVariable(value = "id") Long id) {
+        try {
+            unidadService.deleteById(id);
+            return new ResponseEntity(HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity(e, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @DeleteMapping("/deleteAll")
+    @ApiOperation(value = "Permite eliminar todas las Unidades", response = UnidadDTO.class, tags = "Unidades")
+    public ResponseEntity<?> deleteAll() {
+        try {
+            unidadService.deleteAll();
+            return new ResponseEntity(HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity(e, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

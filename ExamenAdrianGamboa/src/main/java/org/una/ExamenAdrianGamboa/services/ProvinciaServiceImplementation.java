@@ -70,7 +70,19 @@ public class ProvinciaServiceImplementation implements IProvinciaService{
     public Optional<List<ProvinciaDTO>> findByCodigoProvinciaAproximate(String codigoProvincia) {
         return findList(provinciaRepository.findByCodigoProvinciaContaining(codigoProvincia));
     }
-
+    
+    @Override
+    @Transactional(readOnly = true)
+    public Long SumaCantidadPoblacionByProvinciaId(Long idProvincia) {
+        return provinciaRepository.SumaCantidadPoblacionByProvinciaId(idProvincia);
+    }
+    
+    @Override
+    @Transactional(readOnly = true)
+    public Float SumaAreaCuadradaByProvinciaId(Long idProvincia) {
+        return provinciaRepository.SumaAreaCuadradaByProvinciaId(idProvincia);
+    }
+    
     @Override
     @Transactional
     public ProvinciaDTO create(ProvinciaDTO provinciaDTO) {
@@ -90,4 +102,16 @@ public class ProvinciaServiceImplementation implements IProvinciaService{
             return null;
         } 
     }  
+    
+    @Override
+    @Transactional
+    public void deleteById(Long id) {
+        provinciaRepository.deleteById(id);
+    }
+
+    @Override
+    @Transactional
+    public void deleteAll() {
+        provinciaRepository.deleteAll();
+    }
 }

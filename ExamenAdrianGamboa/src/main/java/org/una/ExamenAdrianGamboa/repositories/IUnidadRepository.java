@@ -11,16 +11,14 @@ import org.una.ExamenAdrianGamboa.entities.Unidad;
  */
 
 public interface IUnidadRepository extends JpaRepository<Unidad, Long>{
+          
+   @Query(value = "SELECT SUM(uni.cantidadPoblacion) FROM Unidad uni WHERE uni.id = ?1")
+   public Long SumaUnidadCantidadPoblacion(Long idUnidad); 
    
-         
- //  public List<Unidad> findCantidadPoblacionById(Long id); 
-   
-  // public List<Unidad> findUnidadAreaCuadradaById(Long id);   
-    
+   @Query(value = "SELECT SUM(uni.areaEnMetrosCuadrados) FROM Unidad uni WHERE uni.id = ?1")
+   public Float SumaUnidadAreaCuadrada(Long idUnidad); 
+  
    public List<Unidad> findByNombreUnidadContainingIgnoreCase(String nombreUnidad);
     
-   public List<Unidad> findByCodigoUnidadContaining(String codigoUnidad);
-    
+   public List<Unidad> findByCodigoUnidadContaining(String codigoUnidad);    
 }
-
-

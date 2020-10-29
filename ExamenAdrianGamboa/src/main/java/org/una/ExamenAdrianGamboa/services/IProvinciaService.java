@@ -19,8 +19,15 @@ public interface IProvinciaService {
     
     public Optional<List<ProvinciaDTO>> findByCodigoProvinciaAproximate(String codigoProvincia);
     
+    public Long SumaCantidadPoblacionByProvinciaId(Long idProvincia);
+    
+    public Float SumaAreaCuadradaByProvinciaId(Long idProvincia);
+    
     public ProvinciaDTO create(ProvinciaDTO provincia);
 
     public Optional<ProvinciaDTO> update(ProvinciaDTO provinciaDTO, Long id);
     
+    public void deleteById(Long id);
+
+    public void deleteAll();
 }

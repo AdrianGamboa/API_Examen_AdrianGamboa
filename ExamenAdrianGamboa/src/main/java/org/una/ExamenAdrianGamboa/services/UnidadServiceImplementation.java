@@ -70,6 +70,16 @@ public class UnidadServiceImplementation implements IUnidadService{
     public Optional<List<UnidadDTO>> findByCodigoUnidadAproximate(String codigoUnidad) {
         return findList(unidadRepository.findByCodigoUnidadContaining(codigoUnidad));
     }
+    
+    @Override
+    public Long SumaUnidadCantidadPoblacion(Long idUnidad) {
+        return unidadRepository.SumaUnidadCantidadPoblacion(idUnidad);
+    }
+
+    @Override
+    public Float SumaUnidadAreaCuadrada(Long idUnidad) {
+        return unidadRepository.SumaUnidadAreaCuadrada(idUnidad);
+    }
 
     @Override
     @Transactional
@@ -90,6 +100,16 @@ public class UnidadServiceImplementation implements IUnidadService{
             return null;
         } 
     }  
+    
+    @Override
+    @Transactional
+    public void deleteById(Long id) {
+        unidadRepository.deleteById(id);
+    }
+
+    @Override
+    @Transactional
+    public void deleteAll() {
+        unidadRepository.deleteAll();
+    }
 }
-
-

@@ -70,6 +70,18 @@ public class DistritoServiceImplementation implements IDistritoService{
     public Optional<List<DistritoDTO>> findByCodigoDistritoAproximate(String codigoDistrito) {
         return findList(distritoRepository.findByCodigoDistritoContaining(codigoDistrito));
     }
+    
+    @Override
+    @Transactional(readOnly = true)
+    public Long SumaCantidadPoblacionByDistritoId(Long idDistrito) {
+        return distritoRepository.SumaCantidadPoblacionByDistritoId(idDistrito);
+    }
+    
+    @Override
+    @Transactional(readOnly = true)
+    public Float SumaAreaCuadradaByDistritoId(Long idDistrito) {
+        return distritoRepository.SumaAreaCuadradaByDistritoId(idDistrito);
+    }
 
     @Override
     @Transactional
@@ -89,7 +101,17 @@ public class DistritoServiceImplementation implements IDistritoService{
         } else {
             return null;
         } 
-    }  
+    } 
+    
+    @Override
+    @Transactional
+    public void deleteById(Long id) {
+        distritoRepository.deleteById(id);
+    }
+
+    @Override
+    @Transactional
+    public void deleteAll() {
+        distritoRepository.deleteAll();
+    }
 }
-
-

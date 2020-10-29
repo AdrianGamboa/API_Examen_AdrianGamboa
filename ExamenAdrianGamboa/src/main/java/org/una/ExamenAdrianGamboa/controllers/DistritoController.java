@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 
 import java.util.Optional;
 import javax.validation.Valid;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.una.ExamenAdrianGamboa.dtos.TipoDeUnidadDTO;
 
 /**
  *
@@ -74,6 +76,26 @@ public class DistritoController {
         }
     }
     
+    @GetMapping("/SumaCantidadPoblacionByDistritoId/{id}")
+    @ApiOperation(value = "Obtiene la población del Distrito mediante el Id", response = DistritoDTO.class, tags = "Distritos")
+    public ResponseEntity<?> SumaCantidadPoblacionByDistritoId(@PathVariable(value = "id") Long id) {
+        try {
+            return new ResponseEntity(distritoService.SumaCantidadPoblacionByDistritoId(id), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity(e, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+    
+    @GetMapping("/SumaAreaCuadradaByDistritoId/{id}")
+    @ApiOperation(value = "Obtiene el área cuadrada del Distrito mediante el Id", response = DistritoDTO.class, tags = "Distritos")
+    public ResponseEntity<?> SumaAreaCuadradaByDistritoId(@PathVariable(value = "id") Long id) {
+        try {
+            return new ResponseEntity(distritoService.SumaAreaCuadradaByDistritoId(id), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity(e, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+    
     @PostMapping("/")
     @ApiOperation(value = "Permite crear un Distrito", response = DistritoDTO.class, tags = "Distritos")
     public ResponseEntity<?> create(@Valid @RequestBody DistritoDTO distritoDTO, BindingResult bindingResult) {
@@ -104,6 +126,28 @@ public class DistritoController {
             }
         } else {
             return new ResponseEntity(MENSAJE_VERIFICAR_INFORMACION, HttpStatus.BAD_REQUEST);
+        }
+    }
+    
+    @DeleteMapping("/deleteById/{id}")
+    @ApiOperation(value = "Permite eliminar un Distrito a partir de su Id", response = DistritoDTO.class, tags = "Distritos")
+    public ResponseEntity<?> deleteById(@PathVariable(value = "id") Long id) {
+        try {
+            distritoService.deleteById(id);
+            return new ResponseEntity(HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity(e, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @DeleteMapping("/deleteAll")
+    @ApiOperation(value = "Permite eliminar todos los cantones", response = DistritoDTO.class, tags = "Distritos")
+    public ResponseEntity<?> deleteAll() {
+        try {
+            distritoService.deleteAll();
+            return new ResponseEntity(HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity(e, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

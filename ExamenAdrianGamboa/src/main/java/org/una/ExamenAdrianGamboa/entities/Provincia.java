@@ -30,7 +30,7 @@ public class Provincia implements Serializable {
     private String nombreProvincia;
     
     @Column(name = "codigo", length = 5)
-    private String codigoProvincia;
+    private Integer codigoProvincia;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "provincia")
     private List<Canton> cantones = new ArrayList<>();

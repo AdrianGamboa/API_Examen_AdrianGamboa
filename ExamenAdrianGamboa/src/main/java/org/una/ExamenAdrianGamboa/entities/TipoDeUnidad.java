@@ -14,37 +14,23 @@ import lombok.ToString;
  */
 
 @Entity
-@Table(name = "exa_adr_unidades")
+@Table(name = "exa_adr_tipos_de_unidades")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
 
-public class Unidad implements Serializable {
+public class TipoDeUnidad implements Serializable {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "nombre", length = 50)
-    private String nombreUnidad;
+    private String nombreTipoUnidad;
     
-    @Column(name = "codigo", length = 5)
-    private Integer codigoUnidad;
-    
-    @Column(name = "areaEnMetrosCuadrados")
-    private Double areaEnMetrosCuadrados;
-    
-    @Column(name = "cantidadPoblacion")
-    private Long cantidadPoblacion;
-    
-    @ManyToOne 
-    @JoinColumn(name="distritos_id")
-    private Distrito distrito;
-    
-    @ManyToOne 
-    @JoinColumn(name="tiposDeUnidades_id")
-    private TipoDeUnidad tipoDeUnidad;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tipoDeUnidad")
+    private List<Unidad> unidades = new ArrayList<>();
    
     private static final long serialVersionUID = 1L;
 
@@ -58,5 +44,3 @@ public class Unidad implements Serializable {
        
     }
 }
-
-

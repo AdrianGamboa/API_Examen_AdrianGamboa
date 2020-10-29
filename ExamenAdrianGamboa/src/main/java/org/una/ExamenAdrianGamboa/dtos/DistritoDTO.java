@@ -18,7 +18,7 @@ public class DistritoDTO {
     
     private Long id; 
     private String nombreDistrito;
-    private String codigoDistrito;
+    private Integer codigoDistrito;
     private CantonDTO canton;
     
 }

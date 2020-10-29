@@ -71,6 +71,17 @@ public class CantonServiceImplementation implements ICantonService{
         return findList(cantonRepository.findByCodigoCantonContaining(codigoCanton));
     }
 
+    
+    @Override
+    public Long SumaCantidadPoblacionByCantonId(Long idCanton) {
+        return cantonRepository.SumaCantidadPoblacionByCantonId(idCanton);
+    }
+    
+    @Override
+    public Float SumaAreaCuadradaByCantonId(Long idCanton) {
+        return cantonRepository.SumaAreaCuadradaByCantonId(idCanton);
+    }
+    
     @Override
     @Transactional
     public CantonDTO create(CantonDTO cantonDTO) {
@@ -90,5 +101,16 @@ public class CantonServiceImplementation implements ICantonService{
             return null;
         } 
     }  
-}
+    
+    @Override
+    @Transactional
+    public void deleteById(Long id) {
+        cantonRepository.deleteById(id);
+    }
 
+    @Override
+    @Transactional
+    public void deleteAll() {
+        cantonRepository.deleteAll();
+    }
+}

@@ -19,8 +19,15 @@ public interface IUnidadService {
     
     public Optional<List<UnidadDTO>> findByCodigoUnidadAproximate(String codigoUnidad);
     
+    public Long SumaUnidadCantidadPoblacion(Long idUnidad); 
+    
+    public Float SumaUnidadAreaCuadrada(Long idUnidad);
+    
     public UnidadDTO create(UnidadDTO unidad);
 
     public Optional<UnidadDTO> update(UnidadDTO unidadDTO, Long id);
     
+    public void deleteById(Long id);
+
+    public void deleteAll();
 }
