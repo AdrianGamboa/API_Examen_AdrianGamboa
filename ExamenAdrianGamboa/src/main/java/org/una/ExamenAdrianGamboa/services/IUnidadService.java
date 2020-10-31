@@ -17,7 +17,7 @@ public interface IUnidadService {
  
     public Optional<List<UnidadDTO>> findByNombreUnidadAproximateIgnoreCase(String nombreUnidad);
     
-    public Optional<List<UnidadDTO>> findByCodigoUnidadAproximate(String codigoUnidad);
+    public Optional<UnidadDTO> findByCodigoUnidad(Integer codigoUnidad);
     
     public Long SumaUnidadCantidadPoblacion(Long idUnidad); 
     

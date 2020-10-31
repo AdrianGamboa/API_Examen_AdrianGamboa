@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.una.ExamenAdrianGamboa.dtos.CantonDTO;
+import org.una.ExamenAdrianGamboa.dtos.DistritoDTO;
 import org.una.ExamenAdrianGamboa.entities.Canton;
+import org.una.ExamenAdrianGamboa.entities.Distrito;
 import org.una.ExamenAdrianGamboa.repositories.ICantonRepository;
 import org.una.ExamenAdrianGamboa.utils.MapperUtils;
 
@@ -25,6 +27,15 @@ public class CantonServiceImplementation implements ICantonService{
         if (list != null) {
             List<CantonDTO> cantonDTO = MapperUtils.DtoListFromEntityList(list, CantonDTO.class);
             return Optional.ofNullable(cantonDTO);
+        } else {
+            return null;
+        }
+    }
+    
+    private Optional<List<DistritoDTO>> findListC(List<Distrito> list) {
+        if (list != null) {
+            List<DistritoDTO> distritoDTO = MapperUtils.DtoListFromEntityList(list, DistritoDTO.class);
+            return Optional.ofNullable(distritoDTO);
         } else {
             return null;
         }
@@ -67,8 +78,8 @@ public class CantonServiceImplementation implements ICantonService{
 
     @Override
     @Transactional(readOnly = true)
-    public Optional<List<CantonDTO>> findByCodigoCantonAproximate(String codigoCanton) {
-        return findList(cantonRepository.findByCodigoCantonContaining(codigoCanton));
+    public Optional<CantonDTO> findByCodigoCanton(Integer codigoCanton) {
+        return oneToDto(cantonRepository.findByCodigoCanton(codigoCanton));
     }
 
     
@@ -80,6 +91,11 @@ public class CantonServiceImplementation implements ICantonService{
     @Override
     public Float SumaAreaCuadradaByCantonId(Long idCanton) {
         return cantonRepository.SumaAreaCuadradaByCantonId(idCanton);
+    }
+    
+    @Override
+    public Optional<List<DistritoDTO>> findDistritoById(Long idCanton) {
+        return findListC(cantonRepository.findDistritoById(idCanton));
     }
     
     @Override

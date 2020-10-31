@@ -1,9 +1,11 @@
 package org.una.ExamenAdrianGamboa.repositories;
 
 import java.util.List;
+import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.una.ExamenAdrianGamboa.entities.Distrito;
+import org.una.ExamenAdrianGamboa.entities.Unidad;
 
 /**
  *
@@ -21,9 +23,12 @@ public interface IDistritoRepository extends JpaRepository<Distrito, Long>{
             + "uni.distrito IN (SELECT dist.id FROM Distrito dist WHERE dist.id = ?1)")
     public Float SumaAreaCuadradaByDistritoId(Long idDistrito);
     
+    @Query(value = "SELECT uni FROM Unidad uni WHERE uni.distrito IN (SELECT dist FROM Distrito dist WHERE dist.id = ?1)")
+    public List<Unidad> findUnidadById(Long idDistrito);
+    
     public List<Distrito> findByNombreDistritoContainingIgnoreCase(String nombreDistrito);
     
-    public List<Distrito> findByCodigoDistritoContaining(String codigoDistrito);
+    public Optional<Distrito> findByCodigoDistrito(Integer codigoDistrito);
     
 }
 

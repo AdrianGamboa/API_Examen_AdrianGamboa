@@ -66,11 +66,11 @@ public class UnidadController {
         }
     }
     
-    @GetMapping("/findByCodigoUnidadAproximate/{codigo}")
+    @GetMapping("/findByCodigoUnidad/{codigo}")
     @ApiOperation(value = "Obtiene una Unidad mediante una apoximacion a su codigo", response = UnidadDTO.class, tags = "Unidades")
-    public ResponseEntity<?> findByCodigoUnidadAproximate(@PathVariable(value = "codigo") String codigo) {
+    public ResponseEntity<?> findByCodigoUnidad(@PathVariable(value = "codigo") Integer codigo) {
         try {
-            return new ResponseEntity(unidadService.findByCodigoUnidadAproximate(codigo), HttpStatus.OK);
+            return new ResponseEntity(unidadService.findByCodigoUnidad(codigo), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity(e, HttpStatus.INTERNAL_SERVER_ERROR);
         }

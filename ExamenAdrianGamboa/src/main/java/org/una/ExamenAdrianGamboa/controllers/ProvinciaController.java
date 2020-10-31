@@ -66,11 +66,11 @@ public class ProvinciaController {
         }
     }
     
-    @GetMapping("/findByCodigoProvinciaAproximate/{codigo}")
+    @GetMapping("/findByCodigoProvincia/{codigo}")
     @ApiOperation(value = "Obtiene un Provincia mediante una apoximacion a su codigo", response = ProvinciaDTO.class, tags = "Provincias")
-    public ResponseEntity<?> findByCodigoProvinciaAproximate(@PathVariable(value = "codigo") String codigo) {
+    public ResponseEntity<?> findByCodigoProvincia(@PathVariable(value = "codigo") Integer codigo) {
         try {
-            return new ResponseEntity(provinciaService.findByCodigoProvinciaAproximate(codigo), HttpStatus.OK);
+            return new ResponseEntity(provinciaService.findByCodigoProvincia(codigo), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity(e, HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -91,6 +91,16 @@ public class ProvinciaController {
     public ResponseEntity<?> SumaAreaCuadradaByProvinciaId(@PathVariable(value = "id") Long idProvincia) {
         try {
             return new ResponseEntity(provinciaService.SumaAreaCuadradaByProvinciaId(idProvincia), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity(e, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+    
+    @GetMapping("/findCantonById/{id}")
+    @ApiOperation(value = "Obtiene una lista de los cantones que pertenecen a esa provincia", response = ProvinciaDTO.class, tags = "Provincias")
+    public ResponseEntity<?> findCantonById(@PathVariable(value = "id") Long id) {
+        try {
+            return new ResponseEntity(provinciaService.findCantonById(id), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity(e, HttpStatus.INTERNAL_SERVER_ERROR);
         }

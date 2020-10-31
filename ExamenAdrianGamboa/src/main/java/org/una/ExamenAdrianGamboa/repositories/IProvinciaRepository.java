@@ -1,9 +1,11 @@
 package org.una.ExamenAdrianGamboa.repositories;
 
 import java.util.List;
+import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.una.ExamenAdrianGamboa.entities.Provincia;
+import org.una.ExamenAdrianGamboa.entities.Canton;
 
 /**
  *
@@ -24,8 +26,11 @@ public interface IProvinciaRepository extends JpaRepository<Provincia, Long>{
             + "uni.distrito IN (SELECT dist.id FROM Distrito dist WHERE dist.canton = (SELECT cant.id FROM Canton cant WHERE cant.provincia = ?1))")
     public Float SumaAreaCuadradaByProvinciaId(Long idProvincia);
     
+    @Query(value = "SELECT can FROM Canton can WHERE can.provincia IN (SELECT prov FROM Provincia prov WHERE prov.id = ?1)")
+    public List<Canton> findCantonById(Long idProvincia);
+    
     public List<Provincia> findByNombreProvinciaContainingIgnoreCase(String nombreProvincia);
     
-    public List<Provincia> findByCodigoProvinciaContaining(String codigoProvincia);
+    public Optional<Provincia> findByCodigoProvincia(Integer codigoProvincia);
     
 }

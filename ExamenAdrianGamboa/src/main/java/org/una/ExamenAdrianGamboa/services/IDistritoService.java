@@ -3,6 +3,7 @@ package org.una.ExamenAdrianGamboa.services;
 import java.util.List;
 import java.util.Optional;
 import org.una.ExamenAdrianGamboa.dtos.DistritoDTO;
+import org.una.ExamenAdrianGamboa.dtos.UnidadDTO;
 
 /**
  *
@@ -17,11 +18,13 @@ public interface IDistritoService {
 
     public Optional<List<DistritoDTO>> findByNombreDistritoAproximateIgnoreCase(String nombreDistrito);
     
-    public Optional<List<DistritoDTO>> findByCodigoDistritoAproximate(String codigoDistrito);
+    public Optional<DistritoDTO> findByCodigoDistrito(Integer codigoDistrito);
     
     public Long SumaCantidadPoblacionByDistritoId(Long idDistrito);
     
     public Float SumaAreaCuadradaByDistritoId(Long idDistrito);
+    
+    public Optional<List<UnidadDTO>> findUnidadById(Long idDistrito);
     
     public DistritoDTO create(DistritoDTO distrito);
 

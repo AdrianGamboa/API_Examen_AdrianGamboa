@@ -5,8 +5,10 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.una.ExamenAdrianGamboa.dtos.CantonDTO;
 import org.una.ExamenAdrianGamboa.dtos.ProvinciaDTO;
 import org.una.ExamenAdrianGamboa.entities.Provincia;
+import org.una.ExamenAdrianGamboa.entities.Canton;
 import org.una.ExamenAdrianGamboa.repositories.IProvinciaRepository;
 import org.una.ExamenAdrianGamboa.utils.MapperUtils;
 
@@ -29,7 +31,16 @@ public class ProvinciaServiceImplementation implements IProvinciaService{
             return null;
         }
     }
-
+    
+    private Optional<List<CantonDTO>> findListC(List<Canton> list) {
+        if (list != null) {
+            List<CantonDTO> cantonDTO = MapperUtils.DtoListFromEntityList(list, CantonDTO.class);
+            return Optional.ofNullable(cantonDTO);
+        } else {
+            return null;
+        }
+    }
+    
     private Optional<List<ProvinciaDTO>> findList(Optional<List<Provincia>> list) {
         if (list.isPresent()) {
             return findList(list.get());
@@ -67,8 +78,8 @@ public class ProvinciaServiceImplementation implements IProvinciaService{
 
     @Override
     @Transactional(readOnly = true)
-    public Optional<List<ProvinciaDTO>> findByCodigoProvinciaAproximate(String codigoProvincia) {
-        return findList(provinciaRepository.findByCodigoProvinciaContaining(codigoProvincia));
+    public Optional<ProvinciaDTO> findByCodigoProvincia(Integer codigoProvincia) {
+        return oneToDto(provinciaRepository.findByCodigoProvincia(codigoProvincia));
     }
     
     @Override
@@ -81,6 +92,12 @@ public class ProvinciaServiceImplementation implements IProvinciaService{
     @Transactional(readOnly = true)
     public Float SumaAreaCuadradaByProvinciaId(Long idProvincia) {
         return provinciaRepository.SumaAreaCuadradaByProvinciaId(idProvincia);
+    }
+    
+    @Override
+    @Transactional(readOnly = true)
+    public Optional<List<CantonDTO>> findCantonById(Long idProvincia) {
+        return findListC(provinciaRepository.findCantonById(idProvincia));
     }
     
     @Override

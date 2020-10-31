@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.una.ExamenAdrianGamboa.dtos.DistritoDTO;
+import org.una.ExamenAdrianGamboa.dtos.UnidadDTO;
 import org.una.ExamenAdrianGamboa.entities.Distrito;
+import org.una.ExamenAdrianGamboa.entities.Unidad;
 import org.una.ExamenAdrianGamboa.repositories.IDistritoRepository;
 import org.una.ExamenAdrianGamboa.utils.MapperUtils;
 
@@ -30,6 +32,16 @@ public class DistritoServiceImplementation implements IDistritoService{
         }
     }
 
+    
+    private Optional<List<UnidadDTO>> findListC(List<Unidad> list) {
+        if (list != null) {
+            List<UnidadDTO> unidadDTO = MapperUtils.DtoListFromEntityList(list, UnidadDTO.class);
+            return Optional.ofNullable(unidadDTO);
+        } else {
+            return null;
+        }
+    }
+    
     private Optional<List<DistritoDTO>> findList(Optional<List<Distrito>> list) {
         if (list.isPresent()) {
             return findList(list.get());
@@ -67,8 +79,8 @@ public class DistritoServiceImplementation implements IDistritoService{
 
     @Override
     @Transactional(readOnly = true)
-    public Optional<List<DistritoDTO>> findByCodigoDistritoAproximate(String codigoDistrito) {
-        return findList(distritoRepository.findByCodigoDistritoContaining(codigoDistrito));
+    public Optional<DistritoDTO> findByCodigoDistrito(Integer codigoDistrito) {
+        return oneToDto(distritoRepository.findByCodigoDistrito(codigoDistrito));
     }
     
     @Override
@@ -83,6 +95,12 @@ public class DistritoServiceImplementation implements IDistritoService{
         return distritoRepository.SumaAreaCuadradaByDistritoId(idDistrito);
     }
 
+    
+    @Override
+    public Optional<List<UnidadDTO>> findUnidadById(Long idDistrito) {
+        return findListC(distritoRepository.findUnidadById(idDistrito));
+    }
+    
     @Override
     @Transactional
     public DistritoDTO create(DistritoDTO distritoDTO) {

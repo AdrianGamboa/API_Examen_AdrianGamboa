@@ -66,11 +66,11 @@ public class CantonController {
         }
     }
     
-    @GetMapping("/findByCodigoCantonAproximate/{codigo}")
+    @GetMapping("/findByCodigoCanton/{codigo}")
     @ApiOperation(value = "Obtiene un Canton mediante una apoximacion a su codigo", response = CantonDTO.class, tags = "Cantones")
-    public ResponseEntity<?> findByCodigoCantonAproximate(@PathVariable(value = "codigo") String codigo) {
+    public ResponseEntity<?> findByCodigoCanton(@PathVariable(value = "codigo") Integer codigo) {
         try {
-            return new ResponseEntity(cantonService.findByCodigoCantonAproximate(codigo), HttpStatus.OK);
+            return new ResponseEntity(cantonService.findByCodigoCanton(codigo), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity(e, HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -91,6 +91,16 @@ public class CantonController {
     public ResponseEntity<?> SumaAreaCuadradaByCantonId(@PathVariable(value = "id") Long id) {
         try {
             return new ResponseEntity(cantonService.SumaAreaCuadradaByCantonId(id), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity(e, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+    
+    @GetMapping("/findDistritoById/{id}")
+    @ApiOperation(value = "Obtiene un distrito a partir del id", response = CantonDTO.class, tags = "Cantones")
+    public ResponseEntity<?> findDistritoById(@PathVariable(value = "id") Long id) {
+        try {
+            return new ResponseEntity(cantonService.findDistritoById(id), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity(e, HttpStatus.INTERNAL_SERVER_ERROR);
         }

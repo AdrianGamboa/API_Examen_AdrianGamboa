@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import java.util.Optional;
 import javax.validation.Valid;
 import org.springframework.web.bind.annotation.DeleteMapping;
-import org.una.ExamenAdrianGamboa.dtos.TipoDeUnidadDTO;
 
 /**
  *
@@ -66,11 +65,11 @@ public class DistritoController {
         }
     }
     
-    @GetMapping("/findByCodigoDistritoAproximate/{codigo}")
-    @ApiOperation(value = "Obtiene un Distrito mediante una apoximacion a su codigo", response = DistritoDTO.class, tags = "Distritos")
-    public ResponseEntity<?> findByCodigoDistritoAproximate(@PathVariable(value = "codigo") String codigo) {
+    @GetMapping("/findByCodigoDistrito/{codigo}")
+    @ApiOperation(value = "Obtiene un Distrito mediante su codigo", response = DistritoDTO.class, tags = "Distritos")
+    public ResponseEntity<?> findByCodigoDistrito(@PathVariable(value = "codigo") Integer codigo) {
         try {
-            return new ResponseEntity(distritoService.findByCodigoDistritoAproximate(codigo), HttpStatus.OK);
+            return new ResponseEntity(distritoService.findByCodigoDistrito(codigo), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity(e, HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -91,6 +90,16 @@ public class DistritoController {
     public ResponseEntity<?> SumaAreaCuadradaByDistritoId(@PathVariable(value = "id") Long id) {
         try {
             return new ResponseEntity(distritoService.SumaAreaCuadradaByDistritoId(id), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity(e, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+    
+    @GetMapping("/findUnidadById/{id}")
+    @ApiOperation(value = "Obtiene una lista de unidades mediante el id de un distrito", response = DistritoDTO.class, tags = "Distritos")
+    public ResponseEntity<?> findUnidadById(@PathVariable(value = "id") Long id) {
+        try {
+            return new ResponseEntity(distritoService.findUnidadById(id), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity(e, HttpStatus.INTERNAL_SERVER_ERROR);
         }

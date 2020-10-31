@@ -67,8 +67,8 @@ public class UnidadServiceImplementation implements IUnidadService{
 
     @Override
     @Transactional(readOnly = true)
-    public Optional<List<UnidadDTO>> findByCodigoUnidadAproximate(String codigoUnidad) {
-        return findList(unidadRepository.findByCodigoUnidadContaining(codigoUnidad));
+    public Optional<UnidadDTO> findByCodigoUnidad(Integer codigoUnidad) {
+        return oneToDto(unidadRepository.findByCodigoUnidad(codigoUnidad));
     }
     
     @Override
